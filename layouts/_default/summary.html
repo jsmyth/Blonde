@@ -16,7 +16,7 @@
     <div class="relative pl-4 p-2 justify-between leading-normal max-w-full w-full">
         <div class="text-gray-900 text-xl dark:text-white">{{ .Title }}</div>
         {{ if .Subtitle }}
-            <div class="text-gray-900 font-bold dark:text-white">{{ .Subtitle }}</div>
+            <div class="text-gray-900 font-bold dark:text-white">{{ .Params.subtitle }}</div>
         {{ end }}
         <p class="text-gray-700 text-base mt-2 pb-5 dark:text-gray-300">{{ substr .Summary 0 130 | plainify | htmlUnescape
             }}...</p>
