@@ -8,6 +8,9 @@
         <div class="bg-white col-span-3 p-5 dark:bg-warmgray-900 dark:text-white">
             {{ end }}
             <h1 class="title text-4xl font-bold mb-2">{{.Title}}</h1>
+            {{ if .Params.subtitle }}
+                <h1 class="title text-2xl">{{.Params.subtitle}}</h1>
+            {{ end }}
             <div class="content prose md:prose-lg lg:prose-xl max-w-none dark:prose-invert py-1">{{.Content}}</div>
         </div>
         {{ if .Site.Params.widgets.display }}
