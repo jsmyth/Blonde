@@ -4,8 +4,8 @@
             <div class="flex items-center flex-no-shrink {{ .Site.Params.base_color }} text-white mr-6">
                 <a href="{{ .Site.BaseURL }}">
                     <span class="font-semibold text-2xl tracking-tight">{{ .Site.Title }}</span>
-                    {{ if .Site.Params.subtitle }}
-                        <span class="tracking-tight">{{ .Site.Params.subtitle }}</span>
+                    {{ if .Params.subtitle }}
+                        <span class="tracking-tight">{{ .Params.subtitle }}</span>
                     {{ end }}
                 </a>
             </div>
