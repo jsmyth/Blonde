@@ -1,7 +1,7 @@
 <div class="{{ .Site.Params.base_color }}">
     <div class="container max-w-screen-xl mr-auto ml-auto">
-        <nav class="flex items-center justify-between flex-wrap {{ .Site.Params.base_color }} p-6">
-            <div class="flex items-center flex-no-shrink {{ .Site.Params.base_color }} text-white mr-6">
+        <nav class="flex items-center justify-between flex-wrap {{ .Site.Params.base_color }} px-6">
+            <div class="flex items-center flex-no-shrink {{ .Site.Params.base_color }} text-white py-6 mr-6">
                 <a href="{{ .Site.BaseURL }}">
                     <span class="font-semibold text-2xl tracking-tight">{{ .Site.Title }}</span>
                     {{ if .Site.Params.tagline }}
@@ -9,7 +9,10 @@
                     {{ end }}
                 </a>
             </div>
-            <div class="flex md:hidden">
+            <div class="fixed top-[-6px] left-1/2 z-50 overflow-visible">
+                <img class="w-[125px] ease-in-out transform transition duration-300 hover:scale-125 h-auto" src="/img/hobo_logo.png" alt="Logo" id="logo">
+            </div>
+            <div class="flex md:hidden py-6">
                 <div class="py-2">
                     <button onclick="toggleDarkMode()" class="focus:outline-none mr-1" aria-label="Darkmode Toggle Button"><i id="icon"
                             class="icon-moon inline-flex align-middle leading-normal text-lg text-white"></i></button>
