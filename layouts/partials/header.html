@@ -1,27 +1,17 @@
-<div class="mt-[32px] {{ .Site.Params.base_color }}">
+<div class="sm:mt-[32px] {{ .Site.Params.base_color }}">
     <div class="container max-w-screen-xl mr-auto ml-auto">
-        <div class="fixed top-[-6px] left-1/2 z-50 overflow-visible">
-            <img
-                src="/img/hobo_logo.png"
-                id="logo"
-                alt="Logo"
-                class="w-[155px] relative z-50 mx-auto cursor-pointer transition-all duration-300 ease-in-out"
-                onclick="flipLogo()"
-            />
-        </div>
-        <nav class="flex items-center justify-between flex-wrap {{ .Site.Params.base_color }} px-6">
-            <div class="flex items-center flex-no-shrink {{ .Site.Params.base_color }} text-white py-6 mr-6">
+        <nav class="flex items-center sm:justify-between justify-center flex-wrap {{ .Site.Params.base_color }} px-6">
+            <div class="border-b border-white sm:border-0 flex items-baseline flex-no-shrink {{ .Site.Params.base_color }} text-white md:py-6 pt-6 sm:pt-0 md:mr-6">
                 <a href="{{ .Site.BaseURL }}">
                     <span class="font-semibold text-2xl tracking-tight">{{ .Site.Title }}</span>
-                    {{ if .Site.Params.tagline }}
-                        <span class="text-slate-400 tracking-tight">{{ .Site.Params.tagline }}</span>
-                    {{ end }}
                 </a>
+                    {{ if .Site.Params.tagline }}
+		<a class="ml-[5px]"><span class="text-slate-400 tracking-tight">{{ .Site.Params.tagline }}</span></a>
+                    {{ end }}
             </div>
-            <div class="flex md:hidden py-6">
+            <div class="sm:flex hidden md:hidden py-6">
                 <div class="py-2">
-                    <button onclick="toggleDarkMode()" class="focus:outline-none mr-1" aria-label="Darkmode Toggle Button"><i id="icon"
-                            class="icon-moon inline-flex align-middle leading-normal text-lg text-white"></i></button>
+                    <button onclick="toggleDarkMode()" class="focus:outline-none mr-1" aria-label="Darkmode Toggle Button"><i id="icon" class="icon-moon inline-flex align-middle leading-normal text-lg text-white"></i></button>
                     <span class="text-white">|</span>
                 </div>
                 <button id="hamburgerbtn" class="flex items-center px-3 py-1 text-white hover:opacity-50" aria-label="Hamburger Button">
@@ -41,11 +31,19 @@
                 </div>
                 <div class="text-white invisible md:visible">
                     <span>|</span>
-                    <button onclick="toggleDarkMode()" class="focus-visible:outline-none" aria-label="Darkmode Toggle Button"><i id="icon2"
-                            class="icon-moon hover:opacity-50 duration-200 inline-flex align-middle leading-normal text-lg ml-2"></i></button>
+                    <button onclick="toggleDarkMode()" class="focus-visible:outline-none" aria-label="Darkmode Toggle Button"><i id="icon2" class="icon-moon hover:opacity-50 duration-200 inline-flex align-middle leading-normal text-lg ml-2"></i></button>
                 </div>
             </div>
         </nav>
+        <div class="sm:fixed top-[50px] sm:top-[-6px] sm:left-[52%] z-50 overflow-visible">
+            <img
+                src="/img/hobo_logo.png"
+                id="logo"
+                alt="Logo"
+                class="w-[155px] relative z-50 mx-auto cursor-pointer transition-all duration-300 ease-in-out"
+                onclick="flipLogo()"
+            />
+        </div>
     </div>
 </div>
 <style>
@@ -55,47 +53,49 @@
 </style>
 
 <script>
-    let hamburger = document.getElementById('hamburgerbtn');
+      const logo = document.getElementById('logo');
 
-    let mobileMenu = document.getElementById('mobileMenu');
+      function flipLogo() {
+        const isFlipped = logo.dataset.flipped === 'true';
+        const isHovered = logo.matches(':hover');
+        const scaleTransform = isHovered ? 'scale(1.5)' : '';
+        const translateYTransform = isHovered ? 'translateY(16px)' : '';
 
-    hamburger.addEventListener('click', function () {
-        mobileMenu.classList.toggle('active');
-    });
-
-    const logo = document.getElementById('logo');
-
-    function flipLogo() {
-      const isFlipped = logo.dataset.flipped === 'true';
-      const isHovered = logo.matches(':hover');
-      const scaleTransform = isHovered ? 'scale(1.5)' : '';
-      const translateYTransform = isHovered ? 'translateY(16px)' : '';
-
-      if (isFlipped) {
-        logo.style.transform = `${scaleTransform} ${translateYTransform}`;
-        logo.dataset.flipped = 'false';
-      } else {
-        logo.style.transform = `scaleX(-1) ${scaleTransform} ${translateYTransform}`;
-        logo.dataset.flipped = 'true';
+        if (isFlipped) {
+          logo.style.transform = `${scaleTransform} ${translateYTransform}`;
+          logo.dataset.flipped = 'false';
+        } else {
+          logo.style.transform = `scaleX(-1) ${scaleTransform} ${translateYTransform}`;
+          logo.dataset.flipped = 'true';
+        }
       }
-    }
 
-    function handleHover() {
-      const isFlipped = logo.dataset.flipped === 'true';
-      const scaleTransform = 'scale(1.5)';
-      const flipTransform = isFlipped ? 'scaleX(-1)' : '';
-      const translateYTransform = 'translateY(16px)';
+      function handleHover() {
+        const isFlipped = logo.dataset.flipped === 'true';
+        const scaleTransform = 'scale(1.5)';
+        const flipTransform = isFlipped ? 'scaleX(-1)' : '';
+        const translateYTransform = 'translateY(16px)';
+  
+        logo.style.transform = `${flipTransform} ${scaleTransform} ${translateYTransform}`;
+      }
 
-      logo.style.transform = `${flipTransform} ${scaleTransform} ${translateYTransform}`;
-    }
+      function handleHoverOut() {
+        const isFlipped = logo.dataset.flipped === 'true';
+        const flipTransform = isFlipped ? 'scaleX(-1)' : '';
 
-    function handleHoverOut() {
-      const isFlipped = logo.dataset.flipped === 'true';
-      const flipTransform = isFlipped ? 'scaleX(-1)' : '';
+        logo.style.transform = flipTransform;
+      }
 
-      logo.style.transform = flipTransform;
-    }
+      logo.addEventListener('mouseover', handleHover);
+      logo.addEventListener('mouseout', handleHoverOut);
 
-    logo.addEventListener('mouseover', handleHover);
-    logo.addEventListener('mouseout', handleHoverOut);
+    document.addEventListener('DOMContentLoaded', () => {
+      let hamburger = document.getElementById('hamburgerbtn');
+
+      let mobileMenu = document.getElementById('mobileMenu');
+
+      hamburger.addEventListener('click', function () {
+          mobileMenu.classList.toggle('active');
+      });
+    })
 </script>
