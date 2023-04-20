@@ -1,5 +1,14 @@
-<div class="mt-[15px] {{ .Site.Params.base_color }}">
+<div class="mt-[32px] {{ .Site.Params.base_color }}">
     <div class="container max-w-screen-xl mr-auto ml-auto">
+        <div class="fixed top-[-6px] left-1/2 z-50 overflow-visible">
+            <img
+                src="/img/hobo_logo.png"
+                id="logo"
+                alt="Logo"
+                class="w-[155px] relative z-50 mx-auto cursor-pointer transition-all duration-300 ease-in-out"
+                onclick="flipLogo()"
+            />
+        </div>
         <nav class="flex items-center justify-between flex-wrap {{ .Site.Params.base_color }} px-6">
             <div class="flex items-center flex-no-shrink {{ .Site.Params.base_color }} text-white py-6 mr-6">
                 <a href="{{ .Site.BaseURL }}">
@@ -8,9 +17,6 @@
                         <span class="text-slate-400 tracking-tight">{{ .Site.Params.tagline }}</span>
                     {{ end }}
                 </a>
-            </div>
-            <div class="fixed top-[-6px] left-1/2 z-50 overflow-visible">
-                <img class="w-[125px] ease-in-out transform transition duration-300 hover:scale-125 h-auto" src="/img/hobo_logo.png" alt="Logo" id="logo">
             </div>
             <div class="flex md:hidden py-6">
                 <div class="py-2">
@@ -56,4 +62,40 @@
     hamburger.addEventListener('click', function () {
         mobileMenu.classList.toggle('active');
     });
+
+    const logo = document.getElementById('logo');
+
+    function flipLogo() {
+      const isFlipped = logo.dataset.flipped === 'true';
+      const isHovered = logo.matches(':hover');
+      const scaleTransform = isHovered ? 'scale(1.5)' : '';
+      const translateYTransform = isHovered ? 'translateY(16px)' : '';
+
+      if (isFlipped) {
+        logo.style.transform = `${scaleTransform} ${translateYTransform}`;
+        logo.dataset.flipped = 'false';
+      } else {
+        logo.style.transform = `scaleX(-1) ${scaleTransform} ${translateYTransform}`;
+        logo.dataset.flipped = 'true';
+      }
+    }
+
+    function handleHover() {
+      const isFlipped = logo.dataset.flipped === 'true';
+      const scaleTransform = 'scale(1.5)';
+      const flipTransform = isFlipped ? 'scaleX(-1)' : '';
+      const translateYTransform = 'translateY(16px)';
+
+      logo.style.transform = `${flipTransform} ${scaleTransform} ${translateYTransform}`;
+    }
+
+    function handleHoverOut() {
+      const isFlipped = logo.dataset.flipped === 'true';
+      const flipTransform = isFlipped ? 'scaleX(-1)' : '';
+
+      logo.style.transform = flipTransform;
+    }
+
+    logo.addEventListener('mouseover', handleHover);
+    logo.addEventListener('mouseout', handleHoverOut);
 </script>
