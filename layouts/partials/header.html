@@ -1,37 +1,28 @@
-<div class="sm:mt-[32px] {{ .Site.Params.base_color }}">
-    <div class="container max-w-screen-xl mr-auto ml-auto">
-        <nav class="flex items-center sm:justify-between justify-center flex-wrap {{ .Site.Params.base_color }} px-6">
+<div class="sm:fixed z-50 sm:mt-[32px] {{ .Site.Params.base_color }}">
+    <div class="sm:fixed z-50 container max-w-screen-xl mr-auto ml-auto">
+        <nav class="flex items-center justify-between justify-center flex-wrap {{ .Site.Params.base_color }} px-6">
+            <div class="w-6 sm:hidden"></div> <!-- Spacer to balance the hamburger menu -->
             <div class="border-b border-white sm:border-0 flex items-baseline flex-no-shrink {{ .Site.Params.base_color }} text-white md:py-6 pt-6 sm:pt-0 md:mr-6">
                 <a href="{{ .Site.BaseURL }}">
                     <span class="font-semibold text-2xl tracking-tight">{{ .Site.Title }}</span>
                 </a>
-                    {{ if .Site.Params.tagline }}
+                {{ if .Site.Params.tagline }}
 		<a class="ml-[5px]"><span class="text-slate-400 tracking-tight">{{ .Site.Params.tagline }}</span></a>
-                    {{ end }}
+                {{ end }}
             </div>
-            <div class="sm:flex hidden md:hidden py-6">
-                <div class="py-2">
-                    <button onclick="toggleDarkMode()" class="focus:outline-none mr-1" aria-label="Darkmode Toggle Button"><i id="icon" class="icon-moon inline-flex align-middle leading-normal text-lg text-white"></i></button>
-                    <span class="text-white">|</span>
-                </div>
+            <div class="sm:flex pt-6 sm:py-6">
                 <button id="hamburgerbtn" class="flex items-center px-3 py-1 text-white hover:opacity-50" aria-label="Hamburger Button">
                     <span class="icon-menu text-2xl"></span>
                 </button>
             </div>
-            <div class="hidden w-full md:flex md:flex-row sm:items-center md:w-auto" id="mobileMenu">
-                <div class="text-sm lg:flex-grow">
-                </div>
+            <div class="hidden w-full flex md:flex-row sm:items-center md:w-auto" id="mobileMenu">
                 <div class="navmenu">
                     {{ range .Site.Menus.main }}
                     <a href="{{ .URL }}"
-                        class="no-underline duration-200 block mt-4 sm:inline-block sm:mt-0 text-white hover:opacity-50 mr-4">
+                        class="no-underline duration-200 block justify-end flex mt-4 sm:inline-block sm:mt-0 text-white hover:opacity-50 mr-4">
                         {{ .Name }}
                     </a>
                     {{ end }}
-                </div>
-                <div class="text-white invisible md:visible">
-                    <span>|</span>
-                    <button onclick="toggleDarkMode()" class="focus-visible:outline-none" aria-label="Darkmode Toggle Button"><i id="icon2" class="icon-moon hover:opacity-50 duration-200 inline-flex align-middle leading-normal text-lg ml-2"></i></button>
                 </div>
             </div>
         </nav>
@@ -40,7 +31,7 @@
                 src="/img/hobo_logo.png"
                 id="logo"
                 alt="Logo"
-                class="w-[155px] relative z-50 mx-auto cursor-pointer transition-all duration-300 ease-in-out"
+                class="w-[165px] z-50 mx-auto cursor-pointer transition-all duration-300 ease-in-out"
                 onclick="flipLogo()"
             />
         </div>
@@ -64,9 +55,11 @@
         if (isFlipped) {
           logo.style.transform = `${scaleTransform} ${translateYTransform}`;
           logo.dataset.flipped = 'false';
+          document.documentElement.classList.add('dark')
         } else {
           logo.style.transform = `scaleX(-1) ${scaleTransform} ${translateYTransform}`;
           logo.dataset.flipped = 'true';
+          document.documentElement.classList.remove('dark')
         }
       }
 
